@@ -12,14 +12,15 @@ public class Player {
     private PImage sprite;
     private World world;
 
-    public Player(PImage graphic, Vector2 spawnPosition,World world)
+    public Player(PImage graphic, Vector2 spawnPosition)
     {
         this.sprite = graphic;
         this.position = spawnPosition;
-        this.world = world;
+        this.world = BitSurvival.bitSurvival.world;
     }
 
     public void update(char key){
+        world = BitSurvival.bitSurvival.world;
         actionDelay -= Util.deltaTime();
         movement(key);
         updateCamera();

@@ -1,6 +1,6 @@
 package xyz.bajtix.bitsurvival.core;
 
-import com.sun.javafx.geom.Vec2f;
+
 
 public class Vector2
 {
@@ -32,7 +32,7 @@ public class Vector2
         return new Vector2(x*t,y*t);
     }
 
-    public Vec2f toVec2f() {
-        return new Vec2f(x,y);
+    public Vector2f toVec2f() {
+        return new Vector2f(x,y);
     }
 }

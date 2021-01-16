@@ -31,7 +31,7 @@ public class BitSurvival extends PApplet {
         surface.setIcon(loadImage("data/player.png"));
         Tiles.loadTiles();
         world = new World();
-        player = new Player(loadImage("data/player.png"),new Vector2(64,64),world);
+        player = new Player(loadImage("data/player.png"),new Vector2(64,64));
     }
 
     public void draw() {

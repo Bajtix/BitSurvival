@@ -5,18 +5,19 @@ import xyz.bajtix.bitsurvival.core.Util;
 
 public class Tiles {
     public static Tile
-        dirt,
-        snow,
-        tree,
-        water;
+    dirt,
+    snow,
+    tree,
+    water,
+    ice;
 
 
     public static void loadTiles() {
         dirt = new Tile(0, Util.loadImage("data/dirt.png"),false);
         snow = new Tile(1,Util.loadImage("data/snow.png"),false);
         tree = new Tile(2,Util.loadImage("data/tree.png"),true);
-        water = new Tile(3,Util.loadImage("data/water.png"),true);
-
+        water = new Tile(3, Util.loadImage("data/water.png"),true);
+        ice = new Tile(4, Util.loadImage("data/ice.png"),false);
         System.out.println("Loading tiles");
     }
 }

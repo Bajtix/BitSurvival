@@ -31,6 +31,10 @@ public class Util {
         return BitSurvival.bitSurvival.deltaTime / 15f;
     }
 
+    public static float pow(float n, float exp) {
+        return BitSurvival.pow(n,exp);
+    }
+
     public static boolean inbounds(int i,int l) {
         return i > 0 && i < l;
     }

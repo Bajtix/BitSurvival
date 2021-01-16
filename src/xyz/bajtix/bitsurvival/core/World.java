@@ -6,6 +6,8 @@ import xyz.bajtix.bitsurvival.Content.Tiles;
 public class World {
     public Tile[][] map;
 
+    public float noiseScale = 0.12f;
+    public float seaLevel = 0.60f;
 
     public World() {
         map = new Tile[128][128];
@@ -17,18 +19,28 @@ public class World {
         }
     }
 
-    private void generate(int x, int y)
-    {
-        if(Util.noise(x*0.1f,y*0.1f) > 0.63f) {
-            map[x][y] = Tiles.dirt;
-            if(Util.noise(x*0.1f,y*0.1f) > 0.65f)
+    private void generate(int x, int y) {
+        float noiseValue = Util.pow(Util.noise(x*noiseScale,y*noiseScale),0.5f);
+        float tempValue = Util.noise(x * noiseScale * 0.7f + 43,y * noiseScale * 0.7f + 75);
+
+        if(noiseValue <= seaLevel) {
+            if(tempValue > 0.5f)
                 map[x][y] = Tiles.water;
+            else
+                map[x][y] = Tiles.ice;
         }
         else {
-            map[x][y] = Tiles.snow;
-            if(Util.noise(x*0.2f,y*0.2f) > 0.55f)
-                map[x][y] = Tiles.tree;
+            if(tempValue > 0.65f) {
+                map[x][y] = Tiles.dirt;
+            }
+            else {
+                if(tempValue < 0.3 || noiseValue > seaLevel+0.2f)
+                    map[x][y] = Tiles.tree;
+                else
+                    map[x][y] = Tiles.snow;
+            }
         }
+
     }
 
     public void renderTiles(Vector2 camPos) {
