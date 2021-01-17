@@ -53,4 +53,12 @@ public class Util {
     public static float clamp(float v, float min, float max) {
         return BitSurvival.constrain(v,min,max);
     }
+
+    public static int ceil(float f) {
+        return BitSurvival.ceil(f);
+    }
+
+    public static float sqrt(float s) {
+        return BitSurvival.sqrt(s);
+    }
 }

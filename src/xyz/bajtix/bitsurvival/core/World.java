@@ -3,6 +3,7 @@ package xyz.bajtix.bitsurvival.core;
 import xyz.bajtix.bitsurvival.content.Tiles;
 
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 
 public class World {
 
@@ -12,6 +13,8 @@ public class World {
 
     public float noiseScale = 0.12f;
     public float seaLevel = 0.60f;
+
+    private ArrayList<SoftReference<HeatEmitter>> heatEmitters;
 
     public World() {
         map = new Tile[128][128];
@@ -27,6 +30,31 @@ public class World {
 
     public void updateHeat() {
         //TODO: Make it actually update the heat level
+        for (SoftReference<HeatEmitter> e : heatEmitters) {
+            Vector2 heatCenter = e.get().getHeatCenter();
+            float heatPower = e.get().getHeatLevel();
+            float heatRange = e.get().getHeatRange();
+
+            for(int i = Util.round(-heatRange); i < heatRange*2;  i++) {
+                for(int j = Util.round(-heatRange); j < heatRange*2;  j++) {
+                    if(Util.inbounds(i + heatCenter.x,128) && Util.inbounds(j + heatCenter.y,128)) {
+                        if(Vector2.distance(new Vector2(i,j),new Vector2()) < heatRange) {
+                            heat[i + heatCenter.x][j + heatCenter.y] = heatPower; //TODO: make the heat weaker further from the center
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void addHeatEmitter(SoftReference<HeatEmitter> emitter) {
+        heatEmitters.add(emitter);
+        updateHeat();
+    }
+
+    public void removeHeatEmitter(SoftReference<HeatEmitter> emitter) {
+        heatEmitters.remove(emitter);
+        updateHeat();
     }
 
     private void generate(int x, int y) {

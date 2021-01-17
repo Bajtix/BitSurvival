@@ -35,7 +35,7 @@ public class Player {
         world = BitSurvival.bitSurvival.world;
         actionDelay -= Util.deltaTime();
 
-        heat = Util.lerp(heat,world.getHeat(position),Util.deltaTime()/1000 * heatLossSpeed);
+        heat = Util.lerp(heat,world.getHeat(position),Util.deltaTime() / 1000 * heatLossSpeed);
         finalHeatLevel = heat + heatResistance;
 
         heatDamage();

@@ -12,7 +12,7 @@ public class Render {
     https://forum.processing.org/two/discussion/21391/resize-image-without-any-smoothing
      */
 
-    public static Vector2 cameraPosition = new Vector2(0,0);
+    public static Vector2 cameraPosition = new Vector2(64,64);
     public static Vector2f pixelCameraPosition = new Vector2f(0,0);
 
     public static void updateCamera() {

@@ -35,4 +35,8 @@ public class Vector2
     public Vector2f toVec2f() {
         return new Vector2f(x,y);
     }
+
+    public static float distance(Vector2 a, Vector2 b) {
+        return Util.sqrt(Util.pow(a.x - b.x,2) + Util.pow(a.y - b.y,2));
+    }
 }
