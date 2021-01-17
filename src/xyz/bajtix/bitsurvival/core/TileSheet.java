@@ -29,7 +29,7 @@ public class TileSheet extends Tile{
         this.frameCount = frameCount;
     }
 
-    private PImage[] frames;
+    private final PImage[] frames;
 
     public TileSheet(int id, PImage graphic, boolean collision,int frameCount) {
         super(id, graphic, collision);

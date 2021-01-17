@@ -30,6 +30,10 @@ public class Util {
         return BitSurvival.round(f);
     }
 
+    public static float round(float f,int dp){
+        return BitSurvival.round(f * Util.pow(10,dp)) / Util.pow(10,dp);
+    }
+
     public static float deltaTime() {
         return BitSurvival.bitSurvival.deltaTime;
     }
@@ -42,11 +46,11 @@ public class Util {
         return BitSurvival.pow(n,exp);
     }
 
-    public static void fill(int v) {
-        BitSurvival.bitSurvival.fill(v);
+    public static boolean inbounds(int i,int l) {
+        return i >= 0 && i < l;
     }
 
-    public static boolean inbounds(int i,int l) {
-        return i > 0 && i < l;
+    public static float clamp(float v, float min, float max) {
+        return BitSurvival.constrain(v,min,max);
     }
 }

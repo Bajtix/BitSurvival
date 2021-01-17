@@ -17,10 +17,10 @@ public class UIManager {
     }
 
     public static void update(char key) {
-        Util.fill(0);
+        Render.fill(0);
         if(currentGUI != null)
             currentGUI.update(key);
-        Util.fill(255);
+        Render.fill(255);
     }
 
     public static void open(SoftReference<GUI> gui) {

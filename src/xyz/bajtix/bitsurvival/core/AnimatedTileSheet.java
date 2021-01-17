@@ -5,7 +5,7 @@ import processing.core.PImage;
 public class AnimatedTileSheet extends TileSheet {
 
     private float nextFrame = 0;
-    private float frameTime;
+    protected float frameTime;
 
     public AnimatedTileSheet(int id, PImage graphic, boolean collision, int frameCount, float frameTime) {
         super(id, graphic, collision, frameCount);

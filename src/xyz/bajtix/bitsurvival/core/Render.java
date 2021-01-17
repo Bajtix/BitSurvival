@@ -39,4 +39,16 @@ public class Render {
         BitSurvival.bitSurvival.text(text,posx,posy);
     }
 
+    public static void rect(float x, float y, float w, float h) {
+        BitSurvival.bitSurvival.rect(x,y,w,h);
+    }
+
+    public static void renderRect(float x, float y, float w, float h) {
+        rect(x*32-pixelCameraPosition.x,y*32-pixelCameraPosition.y,w,h);
+    }
+
+    public static void fill(int v) {
+        BitSurvival.bitSurvival.fill(v);
+    }
+
 }

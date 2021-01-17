@@ -39,6 +39,7 @@ public class BitSurvival extends PApplet {
         UIManager.initialize();
         PFont pixel = createFont("font.ttf",64);
         textFont(pixel);
+        noStroke();
 
         UIManager.open(new SoftReference<>(GUIs.baseGameGUI));
     }

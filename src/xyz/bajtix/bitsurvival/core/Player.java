@@ -7,9 +7,19 @@ public class Player {
     public Vector2 position;
     public float health;
     public float energy;
+
     public float actionDelay;
 
     public Inventory inventory;
+    public int selectedItem = 0;
+
+    public float heatResistance = 0;
+    public float heat = 1;
+
+    private float finalHeatLevel;
+
+    public float heatLossSpeed = 0.4f;
+
     private PImage sprite;
     private World world;
 
@@ -18,16 +28,36 @@ public class Player {
         this.sprite = graphic;
         this.position = spawnPosition;
         this.world = BitSurvival.bitSurvival.world;
-        this.health = 100f;
+        this.health = 100;
     }
 
     public void update(char key){
         world = BitSurvival.bitSurvival.world;
         actionDelay -= Util.deltaTime();
+
+        heat = Util.lerp(heat,world.getHeat(position),Util.deltaTime()/1000 * heatLossSpeed);
+        finalHeatLevel = heat + heatResistance;
+
+        heatDamage();
+
+        world.playerOn(position,this);
         movement(key);
         updateCamera();
         render();
-        this.health -= Util.deltaTime() / 1000;
+    }
+
+    public void heatDamage() {
+        float dm = Util.clamp(15 - finalHeatLevel,0,15);
+        damage(dm  * (Util.deltaTime()/1000) * 0.1f);
+    }
+
+    public void damage(float a) {
+        health -= a;
+
+        if(health <= 0){
+            //die
+            BitSurvival.bitSurvival.stop();
+        }
     }
 
     private void updateCamera() {
@@ -39,6 +69,7 @@ public class Player {
     }
 
     private void movement(char key) {
+
         if(actionDelay <= 0)
         {
             boolean moved = false;
@@ -63,8 +94,10 @@ public class Player {
                 position.y +=1;
                 moved = true;
             }
-            if(moved)
+            if(moved) {
                 actionDelay = 200;
+                BitSurvival.bitSurvival.world.stepOn(position,this);
+            }
         }
     }
 }
