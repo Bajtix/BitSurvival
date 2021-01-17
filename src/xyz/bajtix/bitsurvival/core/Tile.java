@@ -14,4 +14,21 @@ public class Tile
         this.graphic = graphic;
         this.collision = collision;
     }
+
+    public void update() {
+
+    }
+
+    public void updateAnimation() {
+
+    }
+
+    public void onStepOn(Player p) {
+
+    }
+
+    @Override
+    public Tile clone(){
+        return new Tile(this.id,this.graphic,this.collision);
+    }
 }

@@ -8,7 +8,11 @@ public class Inventory
         this.stacks = new ItemStack[size];
     }
 
-    //Adds the ItemStack stack to the inventory. Return the remainder
+    /**
+     * Adds an item to the inventory
+     * @param stack the stack to add
+     * @return the remainder
+     */
     public ItemStack insert(ItemStack stack) {
         for(ItemStack s : stacks) {
             if(s.item == stack.item)
@@ -38,4 +42,6 @@ public class Inventory
 
         return stack;
     }
+
+
 }

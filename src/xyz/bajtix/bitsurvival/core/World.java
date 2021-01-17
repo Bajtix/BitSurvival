@@ -1,7 +1,6 @@
 package xyz.bajtix.bitsurvival.core;
 
-import xyz.bajtix.bitsurvival.BitSurvival;
-import xyz.bajtix.bitsurvival.Content.Tiles;
+import xyz.bajtix.bitsurvival.content.Tiles;
 
 public class World {
     public Tile[][] map;
@@ -23,31 +22,37 @@ public class World {
         float noiseValue = Util.pow(Util.noise(x*noiseScale,y*noiseScale),0.5f);
         float tempValue = Util.noise(x * noiseScale * 0.7f + 43,y * noiseScale * 0.7f + 75);
 
+        Tile tile;
         if(noiseValue <= seaLevel) {
             if(tempValue > 0.5f)
-                map[x][y] = Tiles.water;
+                tile = Tiles.water;
             else
-                map[x][y] = Tiles.ice;
+                tile = Tiles.ice;
         }
         else {
             if(tempValue > 0.65f) {
-                map[x][y] = Tiles.dirt;
+                tile = Tiles.dirt;
             }
             else {
                 if(tempValue < 0.3 || noiseValue > seaLevel+0.2f)
-                    map[x][y] = Tiles.tree;
+                    tile = Tiles.tree;
                 else
-                    map[x][y] = Tiles.snow;
+                    tile = Tiles.snow;
             }
         }
+
+        map[x][y] = tile.clone();
+
 
     }
 
     public void renderTiles(Vector2 camPos) {
         for(int x = -1; x < 16; x++) {
             for(int y = -1; y < 16; y++) {
-                if(Util.inbounds(x+camPos.x,128) && Util.inbounds(y+camPos.y,128))
-                    Render.renderImage(map[x+camPos.x][y+camPos.y].graphic,x+camPos.x,y+camPos.y, 32,32);
+                if(Util.inbounds(x+camPos.x,128) && Util.inbounds(y+camPos.y,128)) {
+                    map[x + camPos.x][y + camPos.y].updateAnimation();
+                    Render.renderImage(map[x + camPos.x][y + camPos.y].graphic, x + camPos.x, y + camPos.y, 32, 32);
+                }
             }
         }
     }

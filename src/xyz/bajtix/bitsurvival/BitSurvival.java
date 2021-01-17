@@ -1,9 +1,12 @@
 package xyz.bajtix.bitsurvival;
 
 import processing.core.PApplet;
-import processing.core.PImage;
-import xyz.bajtix.bitsurvival.Content.Tiles;
+import processing.core.PFont;
+import xyz.bajtix.bitsurvival.content.GUIs;
+import xyz.bajtix.bitsurvival.content.Tiles;
 import xyz.bajtix.bitsurvival.core.*;
+
+import java.lang.ref.SoftReference;
 
 public class BitSurvival extends PApplet {
 
@@ -30,8 +33,14 @@ public class BitSurvival extends PApplet {
     {
         surface.setIcon(loadImage("data/player.png"));
         Tiles.loadTiles();
+
         world = new World();
         player = new Player(loadImage("data/player.png"),new Vector2(64,64));
+        UIManager.initialize();
+        PFont pixel = createFont("font.ttf",64);
+        textFont(pixel);
+
+        UIManager.open(new SoftReference<>(GUIs.baseGameGUI));
     }
 
     public void draw() {
@@ -42,6 +51,8 @@ public class BitSurvival extends PApplet {
         Render.updateCamera();
         world.renderTiles(Render.cameraPosition);
         player.update(key);
+
+        UIManager.update(key);
         key = ' ';
     }
 

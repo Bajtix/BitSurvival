@@ -9,6 +9,7 @@ public class Player {
     public float energy;
     public float actionDelay;
 
+    public Inventory inventory;
     private PImage sprite;
     private World world;
 
@@ -17,6 +18,7 @@ public class Player {
         this.sprite = graphic;
         this.position = spawnPosition;
         this.world = BitSurvival.bitSurvival.world;
+        this.health = 100f;
     }
 
     public void update(char key){
@@ -25,6 +27,7 @@ public class Player {
         movement(key);
         updateCamera();
         render();
+        this.health -= Util.deltaTime() / 1000;
     }
 
     private void updateCamera() {

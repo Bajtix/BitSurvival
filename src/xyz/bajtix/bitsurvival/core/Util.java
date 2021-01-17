@@ -7,6 +7,13 @@ import xyz.bajtix.bitsurvival.BitSurvival;
  * Maps the non-static functions of Processing to easier names, and provides some other useful stuff
  */
 public class Util {
+
+    public static final int nativeTextureSize = 32;
+
+    public static float time() {
+        return BitSurvival.bitSurvival.millis() / 1000f;
+    }
+
     public static float noise(float x, float y) {
         return BitSurvival.bitSurvival.noise(x,y);
     }
@@ -33,6 +40,10 @@ public class Util {
 
     public static float pow(float n, float exp) {
         return BitSurvival.pow(n,exp);
+    }
+
+    public static void fill(int v) {
+        BitSurvival.bitSurvival.fill(v);
     }
 
     public static boolean inbounds(int i,int l) {
