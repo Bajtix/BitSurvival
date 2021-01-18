@@ -1,6 +1,7 @@
 package xyz.bajtix.bitsurvival.core;
 
 
+import oracle.jrockit.jfr.events.Bits;
 import processing.core.PImage;
 import xyz.bajtix.bitsurvival.BitSurvival;
 
@@ -39,6 +40,8 @@ public class Render {
         BitSurvival.bitSurvival.text(text,posx,posy);
     }
 
+    public static void text(String text, float posx, float posy, float w, float h) {BitSurvival.bitSurvival.text(text,posx,posy,w,h);}
+
     public static void rect(float x, float y, float w, float h) {
         BitSurvival.bitSurvival.rect(x,y,w,h);
     }
@@ -49,6 +52,14 @@ public class Render {
 
     public static void fill(int v) {
         BitSurvival.bitSurvival.fill(v);
+    }
+
+    public static void fill(int r,int g, int b) {
+        BitSurvival.bitSurvival.fill(r,g,b);
+    }
+
+    public static void fill(int r,int g, int b, int a) {
+        BitSurvival.bitSurvival.fill(r,g,b,a);
     }
 
 }

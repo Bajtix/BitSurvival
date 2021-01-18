@@ -61,4 +61,12 @@ public class Util {
     public static float sqrt(float s) {
         return BitSurvival.sqrt(s);
     }
+
+    public static float max(float a, float b) {
+        return BitSurvival.max(a,b);
+    }
+
+    public static float random(float n) {
+        return BitSurvival.bitSurvival.random(n);
+    }
 }

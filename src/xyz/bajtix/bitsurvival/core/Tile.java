@@ -21,6 +21,14 @@ public class Tile
         this.collision = collision;
     }
 
+    public void onPlace() {
+
+    }
+
+    public void onBreak() {
+
+    }
+
     public void update() {
 
     }

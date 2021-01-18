@@ -8,4 +8,5 @@ import java.lang.ref.SoftReference;
 
 public class GUIs {
     public static GUI baseGameGUI;
+    public static GUI loadingGUI;
 }

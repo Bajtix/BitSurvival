@@ -2,6 +2,7 @@ package xyz.bajtix.bitsurvival.core;
 
 import processing.core.PImage;
 import xyz.bajtix.bitsurvival.BitSurvival;
+import xyz.bajtix.bitsurvival.content.Tiles;
 
 public class Player {
     public Vector2 position;
@@ -93,6 +94,14 @@ public class Player {
                 if(world.collides(position.add(0,1))) return;
                 position.y +=1;
                 moved = true;
+            }
+            if(key == 'e') {
+                BitSurvival.bitSurvival.world.addTile(Tiles.bonfire, position.x, position.y);
+                actionDelay = 300;
+            }
+            if(key == 'q') {
+                BitSurvival.bitSurvival.world.addTile(Tiles.snow, position.x, position.y);
+                actionDelay = 300;
             }
             if(moved) {
                 actionDelay = 200;

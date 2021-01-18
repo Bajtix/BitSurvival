@@ -3,6 +3,7 @@ package xyz.bajtix.bitsurvival.core;
 import xyz.bajtix.bitsurvival.BitSurvival;
 import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.gui.BaseGameGUI;
+import xyz.bajtix.bitsurvival.content.gui.LoadingGUI;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;
@@ -10,16 +11,21 @@ import java.lang.ref.SoftReference;
 
 public class UIManager {
 
+    //TODO: If something does not work, I should check if the reference stuff is not messing up everything
     private static GUI currentGUI;
 
     public static void initialize() {
+        GameLogger.debug("Initializing User Interfaces");
         GUIs.baseGameGUI = new BaseGameGUI(new SoftReference(BitSurvival.bitSurvival.player));
+        GUIs.loadingGUI = new LoadingGUI();
     }
 
     public static void update(char key) {
         Render.fill(0);
-        if(currentGUI != null)
+
+        if(currentGUI != null) {
             currentGUI.update(key);
+        }
         Render.fill(255);
     }
 
