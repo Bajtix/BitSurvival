@@ -2,7 +2,10 @@ package xyz.bajtix.bitsurvival.core;
 
 import processing.core.PImage;
 import xyz.bajtix.bitsurvival.BitSurvival;
+import xyz.bajtix.bitsurvival.content.Items;
 import xyz.bajtix.bitsurvival.content.Tiles;
+
+import java.lang.ref.SoftReference;
 
 public class Player {
     public Vector2 position;
@@ -30,6 +33,9 @@ public class Player {
         this.position = spawnPosition;
         this.world = BitSurvival.bitSurvival.world;
         this.health = 100;
+        this.inventory = new Inventory(8);
+
+
     }
 
     public void update(char key){
@@ -40,7 +46,7 @@ public class Player {
         finalHeatLevel = heat + heatResistance;
 
         heatDamage();
-
+        inventory.validate();
         world.playerOn(position,this);
         movement(key);
         updateCamera();
@@ -59,6 +65,10 @@ public class Player {
             //die
             BitSurvival.bitSurvival.stop();
         }
+    }
+
+    public SoftReference<ItemStack> getSelectedItemStack(){
+        return inventory.get(selectedItem);
     }
 
     private void updateCamera() {
@@ -103,6 +113,50 @@ public class Player {
                 BitSurvival.bitSurvival.world.addTile(Tiles.snow, position.x, position.y);
                 actionDelay = 300;
             }
+            if(key == 't') {
+                getSelectedItemStack().get().item.interact(position.add(0,1),getSelectedItemStack(),new SoftReference<>(BitSurvival.bitSurvival.world));
+                actionDelay = 300;
+            }
+            if(key == 'r') {
+                inventory.insert(new ItemStack(Items.bonfire,1));
+                actionDelay = 300;
+            }
+
+
+            //TODO: fix this part
+            if(key == '1') {
+                selectedItem = 0;
+                actionDelay = 300;
+            }
+            if(key == '2') {
+                selectedItem = 1;
+                actionDelay = 300;
+            }
+            if(key == '3') {
+                selectedItem = 2;
+                actionDelay = 300;
+            }
+            if(key == '4') {
+                selectedItem = 3;
+                actionDelay = 300;
+            }
+            if(key == '5') {
+                selectedItem = 4;
+                actionDelay = 300;
+            }
+            if(key == '6') {
+                selectedItem = 5;
+                actionDelay = 300;
+            }
+            if(key == '7') {
+                selectedItem = 6;
+                actionDelay = 300;
+            }
+            if(key == '8') {
+                selectedItem = 7;
+                actionDelay = 300;
+            }
+
             if(moved) {
                 actionDelay = 200;
                 BitSurvival.bitSurvival.world.stepOn(position,this);

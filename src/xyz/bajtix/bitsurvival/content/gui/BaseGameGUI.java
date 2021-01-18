@@ -27,8 +27,15 @@ public class BaseGameGUI extends GUI {
         Render.rect(16,32,(pl.health / 100f)*224,12);
         Render.fill(0);
         BitSurvival.bitSurvival.textSize(30);
-        Render.text("HP:" + Util.round(pl.health,0),16,43);
-        Render.text("HT:" + Util.round(pl.heat - 6f,2) + "*C", 16, 23);
+        Render.text("HP: " + Util.round(pl.health,0),16,43);
+        Render.text("HT: " + Util.round(pl.heat - 6f,2) + "*C", 16, 23);
+
+        String itemName = "EMPTY";
+
+        if(pl.getSelectedItemStack().get() != null)
+            itemName = pl.getSelectedItemStack().get().item.name + " x " + pl.getSelectedItemStack().get().count;
+
+        Render.text("IT: " + itemName, 120, 23);
 
         if(pl.actionDelay > 0)
             Render.renderRect(pl.position.x - pl.actionDelay/256 + 0.5f, pl.position.y - 0.5f,pl.actionDelay/4,4);
