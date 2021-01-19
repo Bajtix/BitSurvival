@@ -16,14 +16,14 @@ public class BonfireTile extends AnimatedTileSheet implements HeatEmitter {
     }
 
     @Override
-    public void onPlace() {
-        super.onPlace();
+    public void onPlace(Tile previous) {
+        super.onPlace(previous);
         world.get().addHeatEmitter(new SoftReference<>(this));
     }
 
     @Override
-    public void onBreak() {
-        super.onBreak();
+    public void onReplace() {
+        super.onReplace();
         world.get().removeHeatEmitter(new SoftReference<>(this));
     }
 

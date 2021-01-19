@@ -3,7 +3,6 @@ package xyz.bajtix.bitsurvival.core;
 import processing.core.PImage;
 import xyz.bajtix.bitsurvival.BitSurvival;
 import xyz.bajtix.bitsurvival.content.Items;
-import xyz.bajtix.bitsurvival.content.Tiles;
 
 import java.lang.ref.SoftReference;
 
@@ -35,10 +34,10 @@ public class Player {
         this.health = 100;
         this.inventory = new Inventory(8);
 
-
+        this.inventory.insert(new ItemStack(Items.woodAxe,1));
     }
 
-    public void update(char key){
+    public void update(){
         world = BitSurvival.bitSurvival.world;
         actionDelay -= Util.deltaTime();
 
@@ -48,7 +47,7 @@ public class Player {
         heatDamage();
         inventory.validate();
         world.playerOn(position,this);
-        movement(key);
+        movement();
         updateCamera();
         render();
     }
@@ -79,82 +78,63 @@ public class Player {
         Render.renderImage(sprite,position.x,position.y);
     }
 
-    private void movement(char key) {
+    private void useItem(Vector2 at) {
+        if(inventory.get(selectedItem).get() != null) {
+            inventory.get(selectedItem).get().item.interact(at,inventory.get(selectedItem), new SoftReference<>(BitSurvival.bitSurvival.world), new SoftReference<>(this) );
+        }
+    }
+
+    private void movement() {
 
         if(actionDelay <= 0)
         {
             boolean moved = false;
-            if(key=='a')
+            if(Keys.isPressed('A'))
             {
                 if(world.collides(position.add(-1,0))) return;
                 position.x -=1;
                 moved = true;
             }
-            if(key=='d') {
+            else if(Keys.isPressed('D')) {
                 if(world.collides(position.add(1,0))) return;
                 position.x +=1;
                 moved = true;
             }
-            if(key=='w') {
+            else if(Keys.isPressed('W')) {
                 if(world.collides(position.add(0,-1))) return;
                 position.y -=1;
                 moved = true;
             }
-            if(key=='s') {
+            else if(Keys.isPressed('S')) {
                 if(world.collides(position.add(0,1))) return;
                 position.y +=1;
                 moved = true;
             }
-            if(key == 'e') {
-                BitSurvival.bitSurvival.world.addTile(Tiles.bonfire, position.x, position.y);
-                actionDelay = 300;
-            }
-            if(key == 'q') {
-                BitSurvival.bitSurvival.world.addTile(Tiles.snow, position.x, position.y);
-                actionDelay = 300;
-            }
-            if(key == 't') {
-                getSelectedItemStack().get().item.interact(position.add(0,1),getSelectedItemStack(),new SoftReference<>(BitSurvival.bitSurvival.world));
-                actionDelay = 300;
-            }
-            if(key == 'r') {
-                inventory.insert(new ItemStack(Items.bonfire,1));
-                actionDelay = 300;
+
+            for (int i = 0; i < 8; i++) { //Select item number hotkeys
+                if(Keys.isPressed(("" + (i+1)).charAt(0))) {
+                    selectedItem = i;
+                }
             }
 
+            if(Keys.isDown('E')) {
+                world.interact(position,this);
+            }
 
-            //TODO: fix this part
-            if(key == '1') {
-                selectedItem = 0;
-                actionDelay = 300;
+            if(Keys.isDown(38)) { //up
+                useItem(position.add(0,-1));
             }
-            if(key == '2') {
-                selectedItem = 1;
-                actionDelay = 300;
+
+            if(Keys.isDown(40)) { //down
+                useItem(position.add(0,1));
             }
-            if(key == '3') {
-                selectedItem = 2;
-                actionDelay = 300;
+
+            if(Keys.isDown(37)) { //left
+                useItem(position.add(-1,0));
             }
-            if(key == '4') {
-                selectedItem = 3;
-                actionDelay = 300;
-            }
-            if(key == '5') {
-                selectedItem = 4;
-                actionDelay = 300;
-            }
-            if(key == '6') {
-                selectedItem = 5;
-                actionDelay = 300;
-            }
-            if(key == '7') {
-                selectedItem = 6;
-                actionDelay = 300;
-            }
-            if(key == '8') {
-                selectedItem = 7;
-                actionDelay = 300;
+
+            if(Keys.isDown(39)) { //right
+                useItem(position.add(1,0));
             }
 
             if(moved) {

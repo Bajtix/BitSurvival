@@ -1,9 +1,16 @@
 package xyz.bajtix.bitsurvival.content;
 
+import com.sun.deploy.util.ReflectionUtil;
 import xyz.bajtix.bitsurvival.content.tiles.BonfireTile;
+import xyz.bajtix.bitsurvival.content.tiles.BushTile;
 import xyz.bajtix.bitsurvival.content.tiles.IceTile;
 import xyz.bajtix.bitsurvival.content.tiles.WaterTile;
 import xyz.bajtix.bitsurvival.core.*;
+
+import java.lang.reflect.Field;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.logging.Logger;
 
 public class Tiles {
     public static Tile
@@ -12,7 +19,11 @@ public class Tiles {
     tree,
     water,
     ice,
-    bonfire;
+    bonfire,
+    bush,
+    wood;
+
+    private static HashMap<Integer,Tile> tiles;
 
 
     public static void loadTiles() {
@@ -23,6 +34,39 @@ public class Tiles {
         water = new WaterTile(3, Util.loadImage("data/water.png"),false,4, .5f);
         ice = new IceTile(4, Util.loadImage("data/ice.png"),false,3);
         bonfire = new BonfireTile(5,Util.loadImage("data/bonfire.png"),false,3,.1f);
+        bush = new BushTile(6,Util.loadImage("data/bush.png"),false);
+        wood = new TopRandomBuildingTile(7, Util.loadImage("data/wood.png"),false,2);
+
+        regAll();
         GameLogger.debug("Loaded tiles!");
+    }
+
+    public static boolean isTileInTiles(Tile t, Tile[] tiles) {
+        for (int i = 0; i < tiles.length; i++) {
+            if(tiles[i].equals(t))
+                return true;
+        }
+        return false;
+    }
+
+    public static void regAll() {
+        tiles = new HashMap<>();
+        for (Field f : Tiles.class.getDeclaredFields()) {
+            try {
+                if(f.getType() != Tile.class)
+                    continue;
+                Tile t = (Tile)f.get(null);
+                tiles.put(t.id,t);
+            } catch (IllegalAccessException e) {
+                GameLogger.err("Tile registry failed. Stacktrace: " + e.getStackTrace().toString());
+            }
+
+        }
+
+        GameLogger.debug("Finished registering tiles. Registered " + tiles.size());
+    }
+
+    public static Tile getTileById(int i){
+        return tiles.get(i);
     }
 }

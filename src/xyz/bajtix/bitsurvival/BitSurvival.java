@@ -2,12 +2,14 @@ package xyz.bajtix.bitsurvival;
 
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.event.KeyEvent;
 import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.Tiles;
 import xyz.bajtix.bitsurvival.core.*;
 
 import java.lang.ref.SoftReference;
 import java.util.logging.Logger;
+
 
 public class BitSurvival extends PApplet {
 
@@ -32,12 +34,27 @@ public class BitSurvival extends PApplet {
         size(480,480);
     }
 
+    @Override
+    public void keyPressed(KeyEvent event) {
+        super.keyPressed(event);
+        Keys.registerKey(event.getKeyCode());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent event) {
+        super.keyReleased(event);
+
+        Keys.unregisterKey(event.getKeyCode());
+    }
+
     public void setup()
     {
+        pixel = createFont("font.ttf",16);
+        textFont(pixel);
         UIManager.initialize();
-        pixel = createFont("font.ttf",64);
+
         UIManager.open(new SoftReference<>(GUIs.loadingGUI));
-        UIManager.update(' ');
+        UIManager.update();
         surface.setIcon(loadImage("data/player.png"));
         Tiles.loadTiles();
 
@@ -60,10 +77,12 @@ public class BitSurvival extends PApplet {
 
         Render.updateCamera();
         world.renderTiles(Render.cameraPosition);
-        player.update(key);
+        player.update();
 
-        UIManager.update(key);
+        UIManager.update();
         key = ' ';
+
+        Keys.frame();
     }
 
 

@@ -20,11 +20,11 @@ public class UIManager {
         GUIs.loadingGUI = new LoadingGUI();
     }
 
-    public static void update(char key) {
+    public static void update() {
         Render.fill(0);
 
         if(currentGUI != null) {
-            currentGUI.update(key);
+            currentGUI.update();
         }
         Render.fill(255);
     }

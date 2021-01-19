@@ -10,7 +10,7 @@ public class LoadingGUI extends GUI {
     }
 
     @Override
-    public void update(char key) {
+    public void update() {
         Render.fill(0);
         Render.rect(0,0,480,480);
         Render.fill(255);

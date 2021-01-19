@@ -1,11 +1,9 @@
 package xyz.bajtix.bitsurvival.core;
 
-import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.Tiles;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class World {
 
@@ -118,14 +116,18 @@ public class World {
                 tile = Tiles.dirt;
             }
             else {
-                if(tempValue < 0.3 || noiseValue > seaLevel+0.2f)
+                if(tempValue < 0.3 || noiseValue > seaLevel+0.2f) {
                     tile = Tiles.tree;
-                else
+                }
+                else {
                     tile = Tiles.snow;
+
+                    if(Util.random(100) <= 2) {
+                        tile = Tiles.bush;
+                    }
+                }
             }
         }
-
-
         addTile(tile,x,y);
     }
 
@@ -150,12 +152,15 @@ public class World {
             return;
         }
 
-        if(map[x][y] != null)
-            map[x][y].onBreak();
-        map[x][y] = t.clone();
+        Tile previous = null;
+        if(map[x][y] != null) {
+            map[x][y].onReplace();
+            previous = map[x][y];
+        }
+        map[x][y] = Tiles.getTileById(t.id).clone();
         map[x][y].world = new SoftReference<>(this);
         map[x][y].pos = new Vector2(x,y);
-        map[x][y].onPlace();
+        map[x][y].onPlace(previous);
     }
 
     /**
@@ -217,5 +222,14 @@ public class World {
      */
     public void playerOn(Vector2 pos,Player p) {
         map[pos.x][pos.y].onPlayerUpdate(p);
+    }
+
+    /**
+     * Triggers interaction on a tile
+     * @param pos Where to trigger the interaction
+     * @param p The player
+     */
+    public void interact(Vector2 pos,Player p) {
+        map[pos.x][pos.y].interact(p);
     }
 }

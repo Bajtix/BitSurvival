@@ -17,7 +17,7 @@ public class BaseGameGUI extends GUI {
     }
 
     @Override
-    public void update(char key) {
+    public void update() {
         Player pl = player.get();
         Render.fill(0);
         Render.rect(8,4,240,48);
@@ -30,7 +30,7 @@ public class BaseGameGUI extends GUI {
         Render.text("HP: " + Util.round(pl.health,0),16,43);
         Render.text("HT: " + Util.round(pl.heat - 6f,2) + "*C", 16, 23);
 
-        String itemName = "EMPTY";
+        String itemName = "HAND";
 
         if(pl.getSelectedItemStack().get() != null)
             itemName = pl.getSelectedItemStack().get().item.name + " x " + pl.getSelectedItemStack().get().count;

@@ -12,7 +12,7 @@ public class Item
         this.maxStackSize = maxStackSize;
     }
 
-    public void interact(Vector2 pos, SoftReference<ItemStack> in, SoftReference<World> world) {
+    public void interact(Vector2 pos, SoftReference<ItemStack> in, SoftReference<World> world, SoftReference<Player> player) {
 
     }
 }
