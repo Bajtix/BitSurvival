@@ -2,6 +2,7 @@ package xyz.bajtix.bitsurvival.core;
 
 import processing.core.PImage;
 import xyz.bajtix.bitsurvival.BitSurvival;
+import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.Items;
 
 import java.lang.ref.SoftReference;
@@ -23,7 +24,7 @@ public class Player {
 
     public float heatLossSpeed = 0.4f;
 
-    private PImage sprite;
+    private final PImage sprite;
     private World world;
 
     public Player(PImage graphic, Vector2 spawnPosition)
@@ -44,7 +45,7 @@ public class Player {
         heat = Util.lerp(heat,world.getHeat(position),Util.deltaTime() / 1000 * heatLossSpeed);
         finalHeatLevel = heat + heatResistance;
 
-        heatDamage();
+        //heatDamage();
         inventory.validate();
         world.playerOn(position,this);
         movement();
@@ -111,6 +112,14 @@ public class Player {
                 moved = true;
             }
 
+            if(Keys.isDown('I')) {
+                if(UIManager.getOpen().get() == GUIs.inventoryGUI){
+                    UIManager.open(new SoftReference<>(GUIs.baseGameGUI));
+                }
+                else
+                    UIManager.open(new SoftReference<>(GUIs.inventoryGUI));
+            }
+
             for (int i = 0; i < 8; i++) { //Select item number hotkeys
                 if(Keys.isPressed(("" + (i+1)).charAt(0))) {
                     selectedItem = i;
@@ -138,7 +147,7 @@ public class Player {
             }
 
             if(moved) {
-                actionDelay = 200;
+                actionDelay = 200 * BitSurvival.bitSurvival.world.map[position.x][position.y].getPlayerSpeed();
                 BitSurvival.bitSurvival.world.stepOn(position,this);
             }
         }

@@ -72,7 +72,7 @@ public class BitSurvival extends PApplet {
 
         background(0);
         textFont(pixel);
-        textSize(24);
+        textSize(24);textAlign(BitSurvival.LEFT,BitSurvival.BOTTOM);
         noStroke();
 
         Render.updateCamera();

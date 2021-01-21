@@ -3,6 +3,7 @@ package xyz.bajtix.bitsurvival.core;
 import xyz.bajtix.bitsurvival.BitSurvival;
 import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.gui.BaseGameGUI;
+import xyz.bajtix.bitsurvival.content.gui.InventoryGUI;
 import xyz.bajtix.bitsurvival.content.gui.LoadingGUI;
 
 import java.lang.ref.PhantomReference;
@@ -17,6 +18,7 @@ public class UIManager {
     public static void initialize() {
         GameLogger.debug("Initializing User Interfaces");
         GUIs.baseGameGUI = new BaseGameGUI(new SoftReference(BitSurvival.bitSurvival.player));
+        GUIs.inventoryGUI = new InventoryGUI(new SoftReference(BitSurvival.bitSurvival.player));
         GUIs.loadingGUI = new LoadingGUI();
     }
 

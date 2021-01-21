@@ -35,7 +35,7 @@ public class BaseGameGUI extends GUI {
         if(pl.getSelectedItemStack().get() != null)
             itemName = pl.getSelectedItemStack().get().item.name + " x " + pl.getSelectedItemStack().get().count;
 
-        Render.text("IT: " + itemName, 120, 23);
+        Render.text("IT: " + itemName, 110, 23);
 
         if(pl.actionDelay > 0)
             Render.renderRect(pl.position.x - pl.actionDelay/256 + 0.5f, pl.position.y - 0.5f,pl.actionDelay/4,4);

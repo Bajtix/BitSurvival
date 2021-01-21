@@ -42,6 +42,10 @@ public class Render {
 
     public static void text(String text, float posx, float posy, float w, float h) {BitSurvival.bitSurvival.text(text,posx,posy,w,h);}
 
+    public static void textSize(float s) { BitSurvival.bitSurvival.textSize(s);}
+
+    public static void textAlign(int x,int y) { BitSurvival.bitSurvival.textAlign(x,y);}
+
     public static void rect(float x, float y, float w, float h) {
         BitSurvival.bitSurvival.rect(x,y,w,h);
     }

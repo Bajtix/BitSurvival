@@ -47,6 +47,11 @@ public class WaterTile extends AnimatedTileSheet {
     }
 
     @Override
+    public float getPlayerSpeed() {
+        return 2;
+    }
+
+    @Override
     public Tile clone() {
         return new WaterTile(id,graphic,collision,getFrameCount(),frameTime);
     }

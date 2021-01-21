@@ -67,4 +67,8 @@ public class Tile
     public Tile clone(){
         return new Tile(this.id,this.graphic,this.collision);
     }
+
+    public float getPlayerSpeed() {
+        return 1;
+    }
 }

@@ -3,7 +3,7 @@ package xyz.bajtix.bitsurvival.core;
 import processing.core.PImage;
 import xyz.bajtix.bitsurvival.content.Items;
 
-public class TopRandomBuildingTile extends RandomTile implements FiniteResource {
+public class TopRandomBuildingTile extends RandomTile  {
 
     protected Tile previous;
 
@@ -17,21 +17,6 @@ public class TopRandomBuildingTile extends RandomTile implements FiniteResource 
         this.previous = previous;
     }
 
-
-    @Override
-    public Tile getBackupTile() {
-        return previous;
-    }
-
-    @Override
-    public ItemStack getDrop() {
-        return new ItemStack(Items.wood,1);
-    }
-
-    @Override
-    public String getTag() {
-        return "wood";
-    }
 
     @Override
     public Tile clone() {
