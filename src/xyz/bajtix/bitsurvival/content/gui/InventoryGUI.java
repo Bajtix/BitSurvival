@@ -17,9 +17,12 @@ public class InventoryGUI extends GUI {
         this.player = player;
     }
 
+    private int selectedSlot;
+
+
     @Override
     public void update() {
-        GUIs.baseGameGUI.update();
+        selectedSlot = player.get().selectedItem;
         Render.fill(0);
         Render.rect(112,90,480-224,480-180);
         Render.fill(255);
@@ -34,8 +37,31 @@ public class InventoryGUI extends GUI {
         int id = 0;
         for(ItemStack i : player.get().inventory.stacks) {
             String tname = "[EMPTY]";
+            if(id == selectedSlot) {
+                Render.fill(0);
+            }
+            else
+                Render.fill(128);
             if(i != null) tname = i.item.name + " * " + i.count;
             Render.text(tname,118,124 + 16 * (id+1));
+
+
+            id++;
+        }
+
+        Render.textAlign(BitSurvival.RIGHT,BitSurvival.BOTTOM);
+        id = 0;
+        for(ItemStack i : player.get().equipped.stacks) {
+            String tname = "[EMPTY]";
+            if(id == selectedSlot) {
+                Render.fill(0);
+            }
+            else
+                Render.fill(128);
+            if(i != null) tname = i.item.name + " * " + i.count;
+            Render.text(tname,480-118,124 + 16 * (id+1));
+
+
             id++;
         }
     }

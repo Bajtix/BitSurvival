@@ -15,6 +15,7 @@ public class Player {
     public float actionDelay;
 
     public Inventory inventory;
+    public Inventory equipped;
     public int selectedItem = 0;
 
     public float heatResistance = 0;
@@ -34,11 +35,13 @@ public class Player {
         this.world = BitSurvival.bitSurvival.world;
         this.health = 100;
         this.inventory = new Inventory(8);
+        this.equipped = new Inventory(8);
 
         this.inventory.insert(new ItemStack(Items.woodAxe,1));
     }
 
     public void update(){
+
         world = BitSurvival.bitSurvival.world;
         actionDelay -= Util.deltaTime();
 

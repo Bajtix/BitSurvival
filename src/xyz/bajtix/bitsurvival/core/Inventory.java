@@ -20,6 +20,9 @@ public class Inventory
      * @return the remainder
      */
     public ItemStack insert(ItemStack stack) {
+
+        if(stack == null) return null;
+
         for(ItemStack s : stacks) {
             if(s != null)
                 if(s.item == stack.item) {

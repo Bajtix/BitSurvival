@@ -2,12 +2,11 @@ package xyz.bajtix.bitsurvival.content.tiles;
 
 import processing.core.PImage;
 import xyz.bajtix.bitsurvival.content.Items;
-import xyz.bajtix.bitsurvival.core.FiniteResource;
-import xyz.bajtix.bitsurvival.core.ItemStack;
-import xyz.bajtix.bitsurvival.core.Tile;
-import xyz.bajtix.bitsurvival.core.TopRandomBuildingTile;
+import xyz.bajtix.bitsurvival.core.*;
 
-public class WoodTile extends TopRandomBuildingTile implements FiniteResource {
+import java.lang.ref.SoftReference;
+
+public class WoodTile extends TopRandomBuildingTile implements Resource {
     public WoodTile(int id, PImage graphic, boolean collision, int frameCount) {
         super(id, graphic, collision, frameCount);
     }
@@ -27,13 +26,28 @@ public class WoodTile extends TopRandomBuildingTile implements FiniteResource {
         return previous;
     }
 
+    /**
+     * Deals damage to tile
+     *
+     * @param damage How much damage to deal
+     * @param player
+     * @param world
+     * @return The drop after the hit
+     */
     @Override
-    public ItemStack getDrop() {
+    public ItemStack hit(float damage, SoftReference<Player> player, SoftReference<World> world) {
+        world.get().addTile(getBackupTile(),pos);
         return new ItemStack(Items.wood,1);
     }
+
 
     @Override
     public String getTag() {
         return "wood";
+    }
+
+    @Override
+    public int getHarvestLevel() {
+        return 0;
     }
 }
