@@ -41,7 +41,7 @@ public class WaterTile extends AnimatedTileSheet {
     @Override
     public void onPlayerUpdate(Player p) {
         if(nextTime <= Util.time()){
-            p.damage(5);
+            p.damage(5, false);
             nextTime = Util.time() + 0.25f;
         }
     }

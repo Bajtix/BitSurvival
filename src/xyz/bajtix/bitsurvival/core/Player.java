@@ -21,9 +21,10 @@ public class Player {
     public float heatResistance = 0;
     public float heat = 1;
 
-    private float finalHeatLevel;
+    public float finalHeatLevel;
 
-    public float heatLossSpeed = 0.4f;
+    private final float heatLossSpeed = 0.4f;
+    public float speedMultiplier;
 
     private final PImage sprite;
     private World world;
@@ -48,8 +49,10 @@ public class Player {
         heat = Util.lerp(heat,world.getHeat(position),Util.deltaTime() / 1000 * heatLossSpeed);
         finalHeatLevel = heat + heatResistance;
 
-        //heatDamage();
+        heatDamage();
         inventory.validate();
+        equipped.validate();
+
         world.playerOn(position,this);
         movement();
         updateCamera();
@@ -58,10 +61,10 @@ public class Player {
 
     public void heatDamage() {
         float dm = Util.clamp(15 - finalHeatLevel,0,15);
-        damage(dm  * (Util.deltaTime()/1000) * 0.1f);
+        damage(dm  * (Util.deltaTime()/1000) * 0.1f, true);
     }
 
-    public void damage(float a) {
+    public void damage(float a, boolean force) {
         health -= a;
 
         if(health <= 0){
@@ -83,13 +86,14 @@ public class Player {
     }
 
     private void useItem(Vector2 at) {
-        if(inventory.get(selectedItem).get() != null) {
+        if(inventory.get(selectedItem) != null && inventory.get(selectedItem).get() != null) {
             inventory.get(selectedItem).get().item.interact(at,inventory.get(selectedItem), new SoftReference<>(BitSurvival.bitSurvival.world), new SoftReference<>(this) );
         }
     }
 
     private void movement() {
 
+        if(UIManager.getOpen().get() != GUIs.baseGameGUI) return;
         if(actionDelay <= 0)
         {
             boolean moved = false;
@@ -116,11 +120,7 @@ public class Player {
             }
 
             if(Keys.isDown('I')) {
-                if(UIManager.getOpen().get() == GUIs.inventoryGUI){
-                    UIManager.open(new SoftReference<>(GUIs.baseGameGUI));
-                }
-                else
-                    UIManager.open(new SoftReference<>(GUIs.inventoryGUI));
+                UIManager.open(new SoftReference<>(GUIs.inventoryGUI));
             }
 
             for (int i = 0; i < 8; i++) { //Select item number hotkeys

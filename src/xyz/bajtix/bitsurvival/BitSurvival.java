@@ -59,7 +59,7 @@ public class BitSurvival extends PApplet {
         Tiles.loadTiles();
 
         world = new World();
-        player = new Player(loadImage("data/player.png"),new Vector2(64,64));
+        player = new Player(loadImage("data/player.png"),new Vector2(World.WORLD_SIZE/2,World.WORLD_SIZE/2));
         UIManager.initialize();
         UIManager.open(new SoftReference<>(GUIs.baseGameGUI));
 

@@ -1,11 +1,14 @@
 package xyz.bajtix.bitsurvival.core;
 
+import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.Tiles;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
 public class World {
+
+    public static final short WORLD_SIZE = 128;
 
     public Tile[][] map;
     public float[][] baseHeat;
@@ -19,9 +22,9 @@ public class World {
     protected ArrayList<HeatEmitter> heatEmitters;
 
     public World() {
-        map = new Tile[128][128];
-        baseHeat = new float[128][128];
-        heat = new float[128][128];
+        map = new Tile[WORLD_SIZE][WORLD_SIZE];
+        baseHeat = new float[WORLD_SIZE][WORLD_SIZE];
+        heat = new float[WORLD_SIZE][WORLD_SIZE];
         heatEmitters = new ArrayList<>();
 
         int i = 0;
@@ -54,7 +57,7 @@ public class World {
 
             for(int i = Util.round(-heatRange); i < heatRange*2;  i++) {
                 for(int j = Util.round(-heatRange); j < heatRange*2;  j++) {
-                    if(Util.inbounds(i + heatCenter.x,128) && Util.inbounds(j + heatCenter.y,128)) {
+                    if(Util.inbounds(i + heatCenter.x,heat.length) && Util.inbounds(j + heatCenter.y,heat.length)) {
 
                         float d = Vector2.distance(new Vector2(i,j),new Vector2());
                         if(d < heatRange) {
@@ -179,7 +182,7 @@ public class World {
     public void renderTiles(Vector2 camPos) {
         for(int x = -1; x < 16; x++) {
             for(int y = -1; y < 16; y++) {
-                if(Util.inbounds(x+camPos.x,128) && Util.inbounds(y+camPos.y,128)) {
+                if(Util.inbounds(x+camPos.x,heat.length) && Util.inbounds(y+camPos.y,heat.length)) {
                     map[x + camPos.x][y + camPos.y].updateAnimation();
                     Render.renderImage(map[x + camPos.x][y + camPos.y].graphic, x + camPos.x, y + camPos.y, 32, 32);
                     if(renderTemp) {
@@ -190,8 +193,8 @@ public class World {
             }
         }
 
-        for (int i = 0; i < 128; i++) {
-            for (int j = 0; j < 128; j++) {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++) {
                 map[i][j].update();
             }
         }

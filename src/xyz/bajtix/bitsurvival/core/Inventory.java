@@ -61,5 +61,12 @@ public class Inventory
         return new SoftReference<>(stacks[slot]);
     }
 
+    public boolean hasItemOfTag(String tag) {
+        for (ItemStack i : stacks) {
+            if(i.item != null && i.item.tag == tag)
+                return true;
+        }
+        return false;
+    }
 
 }
