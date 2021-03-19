@@ -5,7 +5,9 @@ import xyz.bajtix.bitsurvival.BitSurvival;
 import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.Items;
 
+import java.awt.*;
 import java.lang.ref.SoftReference;
+import java.util.Objects;
 
 public class Player {
     public Vector2 position;
@@ -14,6 +16,7 @@ public class Player {
 
     public float actionDelay;
 
+    //TODO: ASAP rewrite the stat variables. Also I should make the actionDelay smaller when speed increases and not the other way around
     public Inventory inventory;
     public Inventory equipped;
     public int selectedItem = 0;
@@ -24,13 +27,12 @@ public class Player {
     public float finalHeatLevel;
 
     private final float heatLossSpeed = 0.4f;
-    public float speedMultiplier;
+    public float speedMultiplier = 1;
 
     private final PImage sprite;
     private World world;
 
-    public Player(PImage graphic, Vector2 spawnPosition)
-    {
+    public Player(PImage graphic, Vector2 spawnPosition) {
         this.sprite = graphic;
         this.position = spawnPosition;
         this.world = BitSurvival.bitSurvival.world;
@@ -39,6 +41,7 @@ public class Player {
         this.equipped = new Inventory(8);
 
         this.inventory.insert(new ItemStack(Items.woodAxe,1));
+        this.inventory.insert(new ItemStack(Items.softBoots, 1));
     }
 
     public void update(){
@@ -87,7 +90,12 @@ public class Player {
 
     private void useItem(Vector2 at) {
         if(inventory.get(selectedItem) != null && inventory.get(selectedItem).get() != null) {
-            inventory.get(selectedItem).get().item.interact(at,inventory.get(selectedItem), new SoftReference<>(BitSurvival.bitSurvival.world), new SoftReference<>(this) );
+            Objects.requireNonNull(inventory.get(selectedItem).get()).item.interact( //idk what the fuck but intelliJ suggested this
+                    at,
+                    inventory.get(selectedItem),
+                    new SoftReference<>(BitSurvival.bitSurvival.world),
+                    new SoftReference<>(this)
+            );
         }
     }
 

@@ -5,6 +5,7 @@ import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.core.*;
 
 import java.lang.ref.SoftReference;
+import java.util.Objects;
 
 public class InventoryGUI extends GUI {
 
@@ -23,34 +24,35 @@ public class InventoryGUI extends GUI {
     }
 
     private void doInput() {
+        Player pl = Objects.requireNonNull(player.get());
         if(Keys.isDown(39)) { //right
-            if(player.get().getSelectedItemStack().get() instanceof Equipable) {
-                player.get().getSelectedItemStack().get().count--;
-                ItemStack s = player.get().getSelectedItemStack().get();
-                player.get().equipped.insert(new ItemStack(s.item,1));
+            if(pl.getSelectedItemStack().get().item instanceof Equipable) { // replace pl with player.get() is doesn't work
+                pl.getSelectedItemStack().get().count--;
+                ItemStack s = pl.getSelectedItemStack().get();
+                pl.equipped.insert(new ItemStack(s.item,1));
             }
         }
 
-        if(Keys.isDown(37)) { //right
-            if(player.get().equipped.stacks[player.get().selectedItem] != null) {
-                player.get().equipped.stacks[player.get().selectedItem].count--;
-                ItemStack s = player.get().equipped.stacks[player.get().selectedItem];
-                player.get().inventory.insert(new ItemStack(s.item,1));
+        if(Keys.isDown(37)) { //left
+            if(pl.equipped.stacks[pl.selectedItem] != null) {
+                pl.equipped.stacks[pl.selectedItem].count--;
+                ItemStack s = pl.equipped.stacks[pl.selectedItem];
+                pl.inventory.insert(new ItemStack(s.item,1));
             }
         }
 
         if(Keys.isDown(38)) { //up
-            if(player.get().selectedItem > 0)
-                player.get().selectedItem --;
+            if(pl.selectedItem > 0)
+                pl.selectedItem --;
             else
-                player.get().selectedItem = 7;
+                pl.selectedItem = 7;
         }
 
         if(Keys.isDown(40)) { //down
-            if(player.get().selectedItem < 7)
-                player.get().selectedItem ++;
+            if(pl.selectedItem < 7)
+                pl.selectedItem ++;
             else
-                player.get().selectedItem = 0;
+                pl.selectedItem = 0;
         }
 
 
