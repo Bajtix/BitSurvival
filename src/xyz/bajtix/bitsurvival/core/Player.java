@@ -5,10 +5,6 @@ import xyz.bajtix.bitsurvival.BitSurvival;
 import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.Items;
 
-import java.awt.*;
-import java.lang.ref.SoftReference;
-import java.util.Objects;
-
 public class Player {
     public Vector2 position;
     public float health;
@@ -76,7 +72,7 @@ public class Player {
         }
     }
 
-    public SoftReference<ItemStack> getSelectedItemStack(){
+    public ItemStack getSelectedItemStack(){
         return inventory.get(selectedItem);
     }
 
@@ -89,19 +85,19 @@ public class Player {
     }
 
     private void useItem(Vector2 at) {
-        if(inventory.get(selectedItem) != null && inventory.get(selectedItem).get() != null) {
-            Objects.requireNonNull(inventory.get(selectedItem).get()).item.interact( //idk what the fuck but intelliJ suggested this
+        if(inventory.get(selectedItem) != null && inventory.get(selectedItem) != null) {
+            inventory.get(selectedItem).item.interact( //idk what the fuck but intelliJ suggested this
                     at,
                     inventory.get(selectedItem),
-                    new SoftReference<>(BitSurvival.bitSurvival.world),
-                    new SoftReference<>(this)
+                    BitSurvival.bitSurvival.world,
+                    this
             );
         }
     }
 
     private void movement() {
 
-        if(UIManager.getOpen().get() != GUIs.baseGameGUI) return;
+        if(UIManager.getOpen() != GUIs.baseGameGUI) return;
         if(actionDelay <= 0)
         {
             boolean moved = false;
@@ -128,7 +124,7 @@ public class Player {
             }
 
             if(Keys.isDown('I')) {
-                UIManager.open(new SoftReference<>(GUIs.inventoryGUI));
+                UIManager.open(GUIs.inventoryGUI);
             }
 
             for (int i = 0; i < 8; i++) { //Select item number hotkeys

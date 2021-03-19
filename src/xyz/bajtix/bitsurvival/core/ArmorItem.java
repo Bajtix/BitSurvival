@@ -1,7 +1,5 @@
 package xyz.bajtix.bitsurvival.core;
 
-import java.lang.ref.SoftReference;
-
 public class ArmorItem extends Item implements Equipable {
 
     public ArmorItem(String name, int maxStackSize, int slot) {
@@ -19,7 +17,7 @@ public class ArmorItem extends Item implements Equipable {
     }
 
     @Override
-    public boolean canEquip(SoftReference<Player> player) {
+    public boolean canEquip(Player player) {
         return true;
     }
 }

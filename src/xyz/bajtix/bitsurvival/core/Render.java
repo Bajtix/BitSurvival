@@ -1,16 +1,15 @@
 package xyz.bajtix.bitsurvival.core;
 
 
-import oracle.jrockit.jfr.events.Bits;
 import processing.core.PImage;
 import xyz.bajtix.bitsurvival.BitSurvival;
 
 public class Render {
 
-
-    /*TODO:
+    /*
     Change image scaling, so images are 16x16 or 8x8, to free some memory. Currently every image is ~256b; This should reduce it by more than a half.
     https://forum.processing.org/two/discussion/21391/resize-image-without-any-smoothing
+    TODO: UPDATE: DONE! Now we just gotta resize the textures back.
      */
 
     public static Vector2 cameraPosition = new Vector2(64,64);

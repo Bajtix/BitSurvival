@@ -4,14 +4,11 @@ import xyz.bajtix.bitsurvival.BitSurvival;
 import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.core.*;
 
-import java.lang.ref.SoftReference;
-import java.util.Objects;
-
 public class InventoryGUI extends GUI {
 
-    private final SoftReference<Player> player;
+    private final Player player;
 
-    public InventoryGUI(SoftReference<Player> player) {
+    public InventoryGUI(Player player) {
         this.player = player;
     }
 
@@ -24,11 +21,11 @@ public class InventoryGUI extends GUI {
     }
 
     private void doInput() {
-        Player pl = Objects.requireNonNull(player.get());
+        Player pl = player;
         if(Keys.isDown(39)) { //right
-            if(pl.getSelectedItemStack().get().item instanceof Equipable) { // replace pl with player.get() is doesn't work
-                pl.getSelectedItemStack().get().count--;
-                ItemStack s = pl.getSelectedItemStack().get();
+            if(pl.getSelectedItemStack().item instanceof Equipable) { // replace pl with player.get() is doesn't work
+                pl.getSelectedItemStack().count--;
+                ItemStack s = pl.getSelectedItemStack();
                 pl.equipped.insert(new ItemStack(s.item,1));
             }
         }
@@ -58,7 +55,7 @@ public class InventoryGUI extends GUI {
 
 
         if(Keys.isDown('I')) {
-            UIManager.open(new SoftReference<>(GUIs.baseGameGUI));
+            UIManager.open(GUIs.baseGameGUI);
         }
     }
 
@@ -67,7 +64,7 @@ public class InventoryGUI extends GUI {
 
         doInput();
 
-        selectedSlot = player.get().selectedItem;
+        selectedSlot = player.selectedItem;
         Render.fill(0);
         Render.rect(112,90,480-224,480-180);
         Render.fill(255);
@@ -81,7 +78,7 @@ public class InventoryGUI extends GUI {
 
         //this section can be contained in just one for loop, but i am lazy
         int id = 0;
-        for(ItemStack i : player.get().inventory.stacks) {
+        for(ItemStack i : player.inventory.stacks) {
             String tname = "[EMPTY]";
             if(id == selectedSlot) {
                 Render.fill(0);
@@ -96,7 +93,7 @@ public class InventoryGUI extends GUI {
 
         Render.textAlign(BitSurvival.RIGHT,BitSurvival.BOTTOM);
         id = 0;
-        for(ItemStack i : player.get().equipped.stacks) {
+        for(ItemStack i : player.equipped.stacks) {
             String tname = "[EMPTY]";
             if(id == selectedSlot) {
                 Render.fill(0);

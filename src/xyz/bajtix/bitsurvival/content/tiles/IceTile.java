@@ -18,7 +18,7 @@ public class IceTile extends TileSheet implements HeatEmitter {
         nextFrame();
 
         if(getFrame() == getFrameCount()) {
-            world.get().addTile(Tiles.water, pos.x, pos.y);
+            world.addTile(Tiles.water, pos.x, pos.y);
         }
     }
 
@@ -26,7 +26,7 @@ public class IceTile extends TileSheet implements HeatEmitter {
     public void updateAnimation() {
         super.updateAnimation();
 
-        if(world.get().getHeat(pos) > 4.5f) {
+        if(world.getHeat(pos) > 4.5f) {
             if(!isMelting) {
                 meltTime = Util.time() + Util.random(20);
             }
@@ -39,7 +39,7 @@ public class IceTile extends TileSheet implements HeatEmitter {
 
 
         if(meltTime <= Util.time() && isMelting){
-            world.get().addTile(Tiles.water,pos);
+            world.addTile(Tiles.water,pos);
         }
     }
 

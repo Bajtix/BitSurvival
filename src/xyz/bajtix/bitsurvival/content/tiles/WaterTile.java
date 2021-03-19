@@ -22,7 +22,7 @@ public class WaterTile extends AnimatedTileSheet {
     public void update() {
         super.update();
 
-        if(world.get().getHeat(pos) <= 4.5f) {
+        if(world.getHeat(pos) <= 4.5f) {
             if(!isMelting)
                 meltTime = Util.time() + Util.random(20);
             isMelting = true;
@@ -34,7 +34,7 @@ public class WaterTile extends AnimatedTileSheet {
 
 
         if(meltTime <= Util.time() && isMelting){
-            world.get().addTile(Tiles.ice,pos);
+            world.addTile(Tiles.ice,pos);
         }
     }
 

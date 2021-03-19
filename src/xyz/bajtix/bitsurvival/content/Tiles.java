@@ -1,13 +1,10 @@
 package xyz.bajtix.bitsurvival.content;
 
-import com.sun.deploy.util.ReflectionUtil;
 import xyz.bajtix.bitsurvival.content.tiles.*;
 import xyz.bajtix.bitsurvival.core.*;
 
 import java.lang.reflect.Field;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 public class Tiles {
     public static Tile
@@ -26,7 +23,7 @@ public class Tiles {
     public static void loadTiles() {
         GameLogger.debug("Loading tiles...");
         dirt = new Tile(0, Util.loadImage("data/dirt.png"),false);
-        snow = new Tile(1,Util.loadImage("data/snow.png"),false);
+        snow = new Tile(1,Util.loadImage("data/snow8.png"),false);
         tree = new TreesTile(2,Util.loadImage("data/tree.png"),true);
         water = new WaterTile(3, Util.loadImage("data/water.png"),false,4, .5f);
         ice = new IceTile(4, Util.loadImage("data/ice.png"),false,3);
@@ -39,8 +36,8 @@ public class Tiles {
     }
 
     public static boolean isTileInTiles(Tile t, Tile[] tiles) {
-        for (int i = 0; i < tiles.length; i++) {
-            if(tiles[i].equals(t))
+        for (Tile tile : tiles) {
+            if (tile.equals(t))
                 return true;
         }
         return false;

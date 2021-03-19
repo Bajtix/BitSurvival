@@ -6,8 +6,6 @@ import xyz.bajtix.bitsurvival.core.HeatEmitter;
 import xyz.bajtix.bitsurvival.core.Tile;
 import xyz.bajtix.bitsurvival.core.Vector2;
 
-import java.lang.ref.SoftReference;
-
 
 public class BonfireTile extends AnimatedTileSheet implements HeatEmitter {
 
@@ -18,13 +16,13 @@ public class BonfireTile extends AnimatedTileSheet implements HeatEmitter {
     @Override
     public void onPlace(Tile previous) {
         super.onPlace(previous);
-        world.get().addHeatEmitter(new SoftReference<>(this));
+        world.addHeatEmitter(this);
     }
 
     @Override
     public void onReplace() {
         super.onReplace();
-        world.get().removeHeatEmitter(new SoftReference<>(this));
+        world.removeHeatEmitter(this);
     }
 
     @Override

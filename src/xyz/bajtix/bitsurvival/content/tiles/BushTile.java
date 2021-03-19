@@ -16,7 +16,7 @@ public class BushTile extends Tile {
     @Override
     public void interact(Player p) {
         p.inventory.insert(new ItemStack(Items.wood, Util.round(Util.random(3) + 1)));
-        world.get().addTile(Tiles.snow,pos);
+        world.addTile(Tiles.snow,pos);
     }
 
     @Override

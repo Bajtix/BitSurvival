@@ -5,8 +5,6 @@ import xyz.bajtix.bitsurvival.content.Items;
 import xyz.bajtix.bitsurvival.content.Tiles;
 import xyz.bajtix.bitsurvival.core.*;
 
-import java.lang.ref.SoftReference;
-
 public class TreesTile extends Tile implements Resource {
 
     private int hp = 15;
@@ -24,15 +22,15 @@ public class TreesTile extends Tile implements Resource {
      * Deals damage to tile
      *
      * @param damage How much damage to deal
-     * @param player
-     * @param world
+     * @param player The player who hits the tile
+     * @param world The world in which the action takes place
      * @return The drop after the hit
      */
     @Override
-    public ItemStack hit(float damage, SoftReference<Player> player, SoftReference<World> world) {
+    public ItemStack hit(float damage, Player player, World world) {
         hp-=damage;
         if(hp <= 0) {
-            world.get().addTile(getBackupTile(),pos);
+            world.addTile(getBackupTile(),pos);
             return new ItemStack(Items.wood,
                     Util.round(Util.random(15) + 10));
         }

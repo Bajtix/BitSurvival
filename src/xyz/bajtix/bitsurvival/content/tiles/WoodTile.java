@@ -4,8 +4,6 @@ import processing.core.PImage;
 import xyz.bajtix.bitsurvival.content.Items;
 import xyz.bajtix.bitsurvival.core.*;
 
-import java.lang.ref.SoftReference;
-
 public class WoodTile extends TopRandomBuildingTile implements Resource {
     public WoodTile(int id, PImage graphic, boolean collision, int frameCount) {
         super(id, graphic, collision, frameCount);
@@ -30,13 +28,13 @@ public class WoodTile extends TopRandomBuildingTile implements Resource {
      * Deals damage to tile
      *
      * @param damage How much damage to deal
-     * @param player
-     * @param world
+     * @param player The player that damages the tile
+     * @param world The world in which the action takes place
      * @return The drop after the hit
      */
     @Override
-    public ItemStack hit(float damage, SoftReference<Player> player, SoftReference<World> world) {
-        world.get().addTile(getBackupTile(),pos);
+    public ItemStack hit(float damage, Player player, World world) {
+        world.addTile(getBackupTile(),pos);
         return new ItemStack(Items.wood,1);
     }
 

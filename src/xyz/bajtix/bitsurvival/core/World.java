@@ -1,9 +1,7 @@
 package xyz.bajtix.bitsurvival.core;
 
-import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.Tiles;
 
-import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
 public class World {
@@ -74,9 +72,9 @@ public class World {
      * Registers a heat emitter
      * @param emitter The emitter object to register
      */
-    public void addHeatEmitter(SoftReference<HeatEmitter> emitter) {
-        GameLogger.debug("Adding a heat source @ " + emitter.get().getHeatCenter());
-        heatEmitters.add(emitter.get());
+    public void addHeatEmitter(HeatEmitter emitter) {
+        GameLogger.debug("Adding a heat source @ " + emitter.getHeatCenter());
+        heatEmitters.add(emitter);
         updateHeat();
     }
 
@@ -84,9 +82,9 @@ public class World {
      * Removes a heat emitter
      * @param at The emitter to remove
      */
-    public void removeHeatEmitter(SoftReference<HeatEmitter> at) {
-        GameLogger.debug("Removing a heat source @ " + at.get().getHeatCenter());
-        heatEmitters.remove(at.get());
+    public void removeHeatEmitter(HeatEmitter at) {
+        GameLogger.debug("Removing a heat source @ " + at.getHeatCenter());
+        heatEmitters.remove(at);
         updateHeat();
     }
 
@@ -161,7 +159,7 @@ public class World {
             previous = map[x][y];
         }
         map[x][y] = Tiles.getTileById(t.id).clone();
-        map[x][y].world = new SoftReference<>(this);
+        map[x][y].world = this;
         map[x][y].pos = new Vector2(x,y);
         map[x][y].onPlace(previous);
     }

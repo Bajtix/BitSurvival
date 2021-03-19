@@ -1,7 +1,5 @@
 package xyz.bajtix.bitsurvival.core;
 
-import java.lang.ref.SoftReference;
-
 public class Item
 {
     public String name;
@@ -19,7 +17,7 @@ public class Item
         this.tag = tag;
     }
 
-    public void interact(Vector2 pos, SoftReference<ItemStack> in, SoftReference<World> world, SoftReference<Player> player) {
+    public void interact(Vector2 pos, ItemStack in, World world, Player player) {
 
     }
 }

@@ -6,19 +6,17 @@ import xyz.bajtix.bitsurvival.core.Player;
 import xyz.bajtix.bitsurvival.core.Render;
 import xyz.bajtix.bitsurvival.core.Util;
 
-import java.lang.ref.SoftReference;
-
 public class BaseGameGUI extends GUI {
 
-    public SoftReference<Player> player;
+    public Player player;
 
-    public BaseGameGUI(SoftReference<Player> player) {
+    public BaseGameGUI(Player player) {
         this.player = player;
     }
 
     @Override
     public void update() {
-        Player pl = player.get();
+        Player pl = player;
         Render.fill(0);
         Render.rect(8,4,240,48);
         Render.fill(255);
@@ -32,8 +30,8 @@ public class BaseGameGUI extends GUI {
 
         String itemName = "HAND";
 
-        if(pl.getSelectedItemStack().get() != null)
-            itemName = pl.getSelectedItemStack().get().item.name + " x " + pl.getSelectedItemStack().get().count;
+        if(pl.getSelectedItemStack() != null)
+            itemName = pl.getSelectedItemStack().item.name + " x " + pl.getSelectedItemStack().count;
 
         Render.text("IT: " + itemName, 110, 23);
 

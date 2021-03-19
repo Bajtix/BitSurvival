@@ -6,10 +6,6 @@ import xyz.bajtix.bitsurvival.content.gui.BaseGameGUI;
 import xyz.bajtix.bitsurvival.content.gui.InventoryGUI;
 import xyz.bajtix.bitsurvival.content.gui.LoadingGUI;
 
-import java.lang.ref.PhantomReference;
-import java.lang.ref.Reference;
-import java.lang.ref.SoftReference;
-
 public class UIManager {
 
     //TODO: If something does not work, I should check if the reference stuff is not messing up everything
@@ -17,8 +13,8 @@ public class UIManager {
 
     public static void initialize() {
         GameLogger.debug("Initializing User Interfaces");
-        GUIs.baseGameGUI = new BaseGameGUI(new SoftReference(BitSurvival.bitSurvival.player));
-        GUIs.inventoryGUI = new InventoryGUI(new SoftReference(BitSurvival.bitSurvival.player));
+        GUIs.baseGameGUI = new BaseGameGUI(BitSurvival.bitSurvival.player);
+        GUIs.inventoryGUI = new InventoryGUI(BitSurvival.bitSurvival.player);
         GUIs.loadingGUI = new LoadingGUI();
     }
 
@@ -31,15 +27,15 @@ public class UIManager {
         Render.fill(255);
     }
 
-    public static void open(SoftReference<GUI> gui) {
+    public static void open(GUI gui) {
         if(currentGUI != null)
             currentGUI.cleanup();
-        currentGUI = gui.get();
+        currentGUI = gui;
         if(currentGUI != null)
             currentGUI.setup();
     }
 
-    public static Reference<GUI> getOpen() {
-        return new SoftReference<>(currentGUI);
+    public static GUI getOpen() {
+        return currentGUI;
     }
 }

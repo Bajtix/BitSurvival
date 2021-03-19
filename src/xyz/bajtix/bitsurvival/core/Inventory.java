@@ -1,7 +1,5 @@
 package xyz.bajtix.bitsurvival.core;
 
-import java.lang.ref.SoftReference;
-
 public class Inventory
 {
     public ItemStack[] stacks;
@@ -57,13 +55,13 @@ public class Inventory
         }
     }
 
-    public SoftReference<ItemStack> get(int slot) {
-        return new SoftReference<>(stacks[slot]);
+    public ItemStack get(int slot) {
+        return stacks[slot];
     }
 
     public boolean hasItemOfTag(String tag) {
         for (ItemStack i : stacks) {
-            if(i.item != null && i.item.tag == tag)
+            if(i.item != null && i.item.tag.equals(tag))
                 return true;
         }
         return false;

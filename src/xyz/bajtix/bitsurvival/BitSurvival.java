@@ -3,12 +3,10 @@ package xyz.bajtix.bitsurvival;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.event.KeyEvent;
+import processing.opengl.PGraphicsOpenGL;
 import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.Tiles;
 import xyz.bajtix.bitsurvival.core.*;
-
-import java.lang.ref.SoftReference;
-import java.util.logging.Logger;
 
 
 public class BitSurvival extends PApplet {
@@ -32,6 +30,7 @@ public class BitSurvival extends PApplet {
 
     public void settings() {
         size(480,480);
+        noSmooth(); // using this to set texture sampling to Nearest Neighbour
     }
 
     @Override
@@ -49,11 +48,12 @@ public class BitSurvival extends PApplet {
 
     public void setup()
     {
+
         pixel = createFont("font.ttf",16);
         textFont(pixel);
         UIManager.initialize();
 
-        UIManager.open(new SoftReference<>(GUIs.loadingGUI));
+        UIManager.open(GUIs.loadingGUI);
         UIManager.update();
         surface.setIcon(loadImage("data/player.png"));
         Tiles.loadTiles();
@@ -61,7 +61,7 @@ public class BitSurvival extends PApplet {
         world = new World();
         player = new Player(loadImage("data/player.png"),new Vector2(World.WORLD_SIZE/2,World.WORLD_SIZE/2));
         UIManager.initialize();
-        UIManager.open(new SoftReference<>(GUIs.baseGameGUI));
+        UIManager.open(GUIs.baseGameGUI);
 
         GameLogger.debug("Finished setup.");
     }

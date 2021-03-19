@@ -1,9 +1,7 @@
 package xyz.bajtix.bitsurvival.core;
 
 import processing.core.PImage;
-import xyz.bajtix.bitsurvival.BitSurvival;
 
-import java.lang.ref.SoftReference;
 import java.util.Objects;
 
 public class Tile
@@ -13,7 +11,7 @@ public class Tile
     public boolean collision;
 
     public Vector2 pos;
-    public SoftReference<World> world;
+    public World world;
 
     public Tile(int id, PImage graphic, boolean collision)
     {
@@ -63,6 +61,7 @@ public class Tile
         return Objects.hash(id);
     }
 
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
     public Tile clone(){
         return new Tile(this.id,this.graphic,this.collision);

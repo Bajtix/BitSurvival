@@ -1,7 +1,6 @@
 package xyz.bajtix.bitsurvival.core;
 
 import processing.core.PImage;
-import xyz.bajtix.bitsurvival.content.Items;
 
 public class TopRandomBuildingTile extends RandomTile  {
 

@@ -1,7 +1,5 @@
 package xyz.bajtix.bitsurvival.core;
 
-import java.lang.ref.SoftReference;
-
 public interface Resource {
     /**
      * What tile should be placed after this one breaks?
@@ -14,7 +12,7 @@ public interface Resource {
      * @param damage How much damage to deal
      * @return The drop after the hit
      */
-    ItemStack hit(float damage, SoftReference<Player> player, SoftReference<World> world);
+    ItemStack hit(float damage, Player player, World world);
 
     /**
      * What tool should damage the tile
