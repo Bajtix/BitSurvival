@@ -17,13 +17,15 @@ public class Player {
     public Inventory equipped;
     public int selectedItem = 0;
 
-    public float heatResistance = 0;
+    public float stat_heatResistance = 0;
+    public float stat_speedMultiplier = 1;
+
     public float heat = 1;
 
     public float finalHeatLevel;
 
     private final float heatLossSpeed = 0.4f;
-    public float speedMultiplier = 1;
+
 
     private final PImage sprite;
     private World world;
@@ -46,7 +48,7 @@ public class Player {
         actionDelay -= Util.deltaTime();
 
         heat = Util.lerp(heat,world.getHeat(position),Util.deltaTime() / 1000 * heatLossSpeed);
-        finalHeatLevel = heat + heatResistance;
+        finalHeatLevel = heat + stat_heatResistance;
 
         heatDamage();
         inventory.validate();
@@ -56,10 +58,23 @@ public class Player {
         movement();
         updateCamera();
         render();
+
+        applyAllEquippedEffects();
+    }
+
+    private void applyAllEquippedEffects() {
+        stat_heatResistance = 0;
+        stat_speedMultiplier = 1;
+
+        for (ItemStack s : equipped.stacks) {
+            if(s == null) continue;
+            StatModifier[] mods = ((Equipable)s.item).getModifier(this,world);
+            for(StatModifier m : mods) m.applyToObject(this);
+        }
     }
 
     public void heatDamage() {
-        float dm = Util.clamp(15 - finalHeatLevel,0,15);
+        float dm = Util.clamp(15 - (finalHeatLevel - stat_heatResistance),0,15);
         damage(dm  * (Util.deltaTime()/1000) * 0.1f, true);
     }
 
@@ -68,7 +83,7 @@ public class Player {
 
         if(health <= 0){
             //die
-            BitSurvival.bitSurvival.stop();
+            BitSurvival.bitSurvival.exit(); // temporary, just quits. TODO: Create an actual deathscreen
         }
     }
 
@@ -154,7 +169,7 @@ public class Player {
             }
 
             if(moved) {
-                actionDelay = 200 * BitSurvival.bitSurvival.world.map[position.x][position.y].getPlayerSpeed();
+                actionDelay = 200 * BitSurvival.bitSurvival.world.map[position.x][position.y].getPlayerSpeed() / stat_speedMultiplier;
                 BitSurvival.bitSurvival.world.stepOn(position,this);
             }
         }
