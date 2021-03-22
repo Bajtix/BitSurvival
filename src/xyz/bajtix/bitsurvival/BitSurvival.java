@@ -57,13 +57,14 @@ public class BitSurvival extends PApplet {
         UIManager.update();
         surface.setIcon(loadImage("data/player.png"));
         Tiles.loadTiles();
-
+        EventSystem.initialize();
         world = new World();
         player = new Player(loadImage("data/player.png"),new Vector2(World.WORLD_SIZE/2,World.WORLD_SIZE/2));
         UIManager.initialize();
         UIManager.open(GUIs.baseGameGUI);
 
         GameLogger.debug("Finished setup.");
+
     }
 
     public void draw() {

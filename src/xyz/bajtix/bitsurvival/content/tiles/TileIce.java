@@ -4,12 +4,12 @@ import processing.core.PImage;
 import xyz.bajtix.bitsurvival.content.Tiles;
 import xyz.bajtix.bitsurvival.core.*;
 
-public class IceTile extends TileSheet implements HeatEmitter {
+public class TileIce extends TileSheet implements HeatEmitter {
 
     private float meltTime = 0;
     private boolean isMelting = false;
 
-    public IceTile(int id, PImage graphic, boolean collision, int frameCount) {
+    public TileIce(int id, PImage graphic, boolean collision, int frameCount) {
         super(id, graphic, collision, frameCount);
     }
 
@@ -45,7 +45,7 @@ public class IceTile extends TileSheet implements HeatEmitter {
 
     @Override
     public Tile clone() {
-        return new IceTile(id,graphic,collision,getFrameCount());
+        return new TileIce(id,graphic,collision,getFrameCount());
     }
 
     @Override

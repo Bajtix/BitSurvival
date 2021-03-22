@@ -7,14 +7,14 @@ import xyz.bajtix.bitsurvival.core.Player;
 import xyz.bajtix.bitsurvival.core.Tile;
 import xyz.bajtix.bitsurvival.core.Util;
 
-public class WaterTile extends AnimatedTileSheet {
+public class TileWater extends AnimatedTileSheet {
 
     private float nextTime;
 
     private float meltTime;
     private boolean isMelting = false;
 
-    public WaterTile(int id, PImage graphic, boolean collision, int frameCount, float frameTime) {
+    public TileWater(int id, PImage graphic, boolean collision, int frameCount, float frameTime) {
         super(id, graphic, collision, frameCount, frameTime);
     }
 
@@ -53,6 +53,6 @@ public class WaterTile extends AnimatedTileSheet {
 
     @Override
     public Tile clone() {
-        return new WaterTile(id,graphic,collision,getFrameCount(),frameTime);
+        return new TileWater(id,graphic,collision,getFrameCount(),frameTime);
     }
 }

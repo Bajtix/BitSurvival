@@ -2,9 +2,9 @@ package xyz.bajtix.bitsurvival.core;
 
 import xyz.bajtix.bitsurvival.BitSurvival;
 import xyz.bajtix.bitsurvival.content.GUIs;
-import xyz.bajtix.bitsurvival.content.gui.BaseGameGUI;
-import xyz.bajtix.bitsurvival.content.gui.InventoryGUI;
-import xyz.bajtix.bitsurvival.content.gui.LoadingGUI;
+import xyz.bajtix.bitsurvival.content.gui.GuiBaseGame;
+import xyz.bajtix.bitsurvival.content.gui.GuiInventory;
+import xyz.bajtix.bitsurvival.content.gui.GuiLoading;
 
 public class UIManager {
 
@@ -13,9 +13,9 @@ public class UIManager {
 
     public static void initialize() {
         GameLogger.debug("Initializing User Interfaces");
-        GUIs.baseGameGUI = new BaseGameGUI(BitSurvival.bitSurvival.player);
-        GUIs.inventoryGUI = new InventoryGUI(BitSurvival.bitSurvival.player);
-        GUIs.loadingGUI = new LoadingGUI();
+        GUIs.baseGameGUI = new GuiBaseGame(BitSurvival.bitSurvival.player);
+        GUIs.inventoryGUI = new GuiInventory(BitSurvival.bitSurvival.player);
+        GUIs.loadingGUI = new GuiLoading();
     }
 
     public static void update() {

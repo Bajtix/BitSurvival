@@ -5,6 +5,8 @@ import xyz.bajtix.bitsurvival.BitSurvival;
 import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.content.Items;
 
+import java.awt.*;
+
 public class Player {
     public Vector2 position;
     public float health;
@@ -25,6 +27,7 @@ public class Player {
     public float finalHeatLevel;
 
     private final float heatLossSpeed = 0.4f;
+
 
 
     private final PImage sprite;
@@ -68,6 +71,7 @@ public class Player {
 
         for (ItemStack s : equipped.stacks) {
             if(s == null) continue;
+            ((Equipable)s.item).equippedTick(this,world);
             StatModifier[] mods = ((Equipable)s.item).getModifier(this,world);
             for(StatModifier m : mods) m.applyToObject(this);
         }
@@ -83,6 +87,7 @@ public class Player {
 
         if(health <= 0){
             //die
+
             BitSurvival.bitSurvival.exit(); // temporary, just quits. TODO: Create an actual deathscreen
         }
     }
@@ -171,6 +176,7 @@ public class Player {
             if(moved) {
                 actionDelay = 200 * BitSurvival.bitSurvival.world.map[position.x][position.y].getPlayerSpeed() / stat_speedMultiplier;
                 BitSurvival.bitSurvival.world.stepOn(position,this);
+                EventSystem.eventChannel("playerEvents","onStep",this, world);
             }
         }
     }

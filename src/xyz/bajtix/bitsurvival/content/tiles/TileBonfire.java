@@ -7,9 +7,9 @@ import xyz.bajtix.bitsurvival.core.Tile;
 import xyz.bajtix.bitsurvival.core.Vector2;
 
 
-public class BonfireTile extends AnimatedTileSheet implements HeatEmitter {
+public class TileBonfire extends AnimatedTileSheet implements HeatEmitter {
 
-    public BonfireTile(int id, PImage graphic, boolean collision, int frameCount, float frameTime) {
+    public TileBonfire(int id, PImage graphic, boolean collision, int frameCount, float frameTime) {
         super(id, graphic, collision, frameCount, frameTime);
     }
 
@@ -42,6 +42,6 @@ public class BonfireTile extends AnimatedTileSheet implements HeatEmitter {
 
     @Override
     public Tile clone() {
-        return new BonfireTile(id,graphic,collision,getFrameCount(),frameTime);
+        return new TileBonfire(id,graphic,collision,getFrameCount(),frameTime);
     }
 }

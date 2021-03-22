@@ -3,7 +3,7 @@ package xyz.bajtix.bitsurvival.content.gui;
 import xyz.bajtix.bitsurvival.core.GUI;
 import xyz.bajtix.bitsurvival.core.Render;
 
-public class LoadingGUI extends GUI {
+public class GuiLoading extends GUI {
     @Override
     public void setup() {
         super.setup();

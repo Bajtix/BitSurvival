@@ -2,41 +2,42 @@ package xyz.bajtix.bitsurvival.content.tiles;
 
 import processing.core.PImage;
 import xyz.bajtix.bitsurvival.content.Items;
-import xyz.bajtix.bitsurvival.content.Tiles;
 import xyz.bajtix.bitsurvival.core.*;
 
-public class TreesTile extends Tile implements Resource {
+public class TileWood extends TopRandomBuildingTile implements Resource {
+    public TileWood(int id, PImage graphic, boolean collision, int frameCount) {
+        super(id, graphic, collision, frameCount);
+    }
 
-    private int hp = 15;
+    @Override
+    public Tile clone() {
+        return new TileWood(id,graphic,collision,getFrameCount());
+    }
 
-    public TreesTile(int id, PImage graphic, boolean collision) {
-        super(id, graphic, collision);
+    @Override
+    public float getPlayerSpeed() {
+        return 0.7f;
     }
 
     @Override
     public Tile getBackupTile() {
-        return Tiles.snow;
+        return previous;
     }
 
     /**
      * Deals damage to tile
      *
      * @param damage How much damage to deal
-     * @param player The player who hits the tile
+     * @param player The player that damages the tile
      * @param world The world in which the action takes place
      * @return The drop after the hit
      */
     @Override
     public ItemStack hit(float damage, Player player, World world) {
-        hp-=damage;
-        if(hp <= 0) {
-            world.addTile(getBackupTile(),pos);
-            return new ItemStack(Items.wood,
-                    Util.round(Util.random(15) + 10));
-        }
-        else
-            return null;
+        world.addTile(getBackupTile(),pos);
+        return new ItemStack(Items.wood,1);
     }
+
 
     @Override
     public String getTag() {
@@ -46,10 +47,5 @@ public class TreesTile extends Tile implements Resource {
     @Override
     public int getHarvestLevel() {
         return 0;
-    }
-
-    @Override
-    public Tile clone() {
-        return new TreesTile(id,graphic,collision);
     }
 }

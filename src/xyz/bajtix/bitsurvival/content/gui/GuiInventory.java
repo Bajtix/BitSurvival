@@ -4,11 +4,11 @@ import xyz.bajtix.bitsurvival.BitSurvival;
 import xyz.bajtix.bitsurvival.content.GUIs;
 import xyz.bajtix.bitsurvival.core.*;
 
-public class InventoryGUI extends GUI {
+public class GuiInventory extends GUI {
 
     private final Player player;
 
-    public InventoryGUI(Player player) {
+    public GuiInventory(Player player) {
         this.player = player;
     }
 

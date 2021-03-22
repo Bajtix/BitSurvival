@@ -8,8 +8,8 @@ import xyz.bajtix.bitsurvival.core.Player;
 import xyz.bajtix.bitsurvival.core.Tile;
 import xyz.bajtix.bitsurvival.core.Util;
 
-public class BushTile extends Tile {
-    public BushTile(int id, PImage graphic, boolean collision) {
+public class TileBush extends Tile {
+    public TileBush(int id, PImage graphic, boolean collision) {
         super(id, graphic, collision);
     }
 
@@ -21,6 +21,6 @@ public class BushTile extends Tile {
 
     @Override
     public Tile clone() {
-        return new BushTile(id,graphic,collision);
+        return new TileBush(id,graphic,collision);
     }
 }

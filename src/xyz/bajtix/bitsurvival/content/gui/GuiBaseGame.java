@@ -6,11 +6,11 @@ import xyz.bajtix.bitsurvival.core.Player;
 import xyz.bajtix.bitsurvival.core.Render;
 import xyz.bajtix.bitsurvival.core.Util;
 
-public class BaseGameGUI extends GUI {
+public class GuiBaseGame extends GUI {
 
     public Player player;
 
-    public BaseGameGUI(Player player) {
+    public GuiBaseGame(Player player) {
         this.player = player;
     }
 
