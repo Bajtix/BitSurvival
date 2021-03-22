@@ -55,7 +55,6 @@ public class Tiles {
             } catch (IllegalAccessException e) {
                 GameLogger.err("Tile registry failed. Stacktrace: " + Arrays.toString(e.getStackTrace()));
             }
-
         }
 
         GameLogger.debug("Finished registering tiles. Registered " + tiles.size());

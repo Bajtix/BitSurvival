@@ -18,6 +18,16 @@ public class ArmorItem extends Item implements Equipable {
     }
 
     @Override
+    public void equipped(Player player, World world) {
+        EventSystem.addListener("playerEvents",this);
+    }
+
+    @Override
+    public void unequipped(Player player, World world) {
+        EventSystem.removeListener("playerEvents",this);
+    }
+
+    @Override
     public StatModifier[] getModifier(Player player, World world) {
         return modifier;
     }

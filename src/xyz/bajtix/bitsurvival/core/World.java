@@ -41,9 +41,7 @@ public class World {
      */
     public void updateHeat() {
         for(int i = 0; i < map.length;  i++) {
-            for(int j = 0; j < map[0].length;  j++) {
-                heat[i][j] = baseHeat[i][j];
-            }
+            System.arraycopy(baseHeat[i], 0, heat[i], 0, map[0].length);
         }
 
 
@@ -233,4 +231,6 @@ public class World {
     public void interact(Vector2 pos,Player p) {
         map[pos.x][pos.y].interact(p);
     }
+
+    public Tile getTile(Vector2 pos) {return map[pos.x][pos.y];}
 }

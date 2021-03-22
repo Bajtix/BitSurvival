@@ -57,17 +57,20 @@ public class EventSystem {
     }
 
     public static void eventChannel(String channel, String event, Object... params) {
+        if(!listeners.containsKey(channel)) return;
         for(Object o : listeners.get(channel)) {
             if(o == null) continue;
             try {
                 Method m = o.getClass().getMethod(event, objectClassArray(params));
                 m.invoke(o, params);
             } catch (NoSuchMethodException e) {
-                //GameLogger.warning(String.format("An event was called for an instance of %s but the handler does not exist", o.getClass().getCanonicalName())); //this is unnecessary, as a lot of events just should be ignored
+                GameLogger.warning(String.format("An event was called for an instance of %s but the handler does not exist", o.getClass().getCanonicalName())); //this is unnecessary, as a lot of events just should be ignored
             } catch (IllegalAccessException e) {
-                GameLogger.err(String.format("EventSystem tried to call a method %s in %s which is not accessible. \n",event, o.getClass().getCanonicalName()) + Arrays.toString(e.getStackTrace()));
+                GameLogger.err(String.format("EventSystem tried to call a method %s in %s which is not accessible.",event, o.getClass().getCanonicalName()));
+                e.getCause().printStackTrace();
             } catch (InvocationTargetException e) {
-                GameLogger.err(String.format("An EventSystem Event has thrown an error while executing %s in %s. \n", event, o.getClass().getCanonicalName()) + Arrays.toString(e.getStackTrace()));
+                GameLogger.err(String.format("An EventSystem Event has thrown an error while executing %s in %s.", event, o.getClass().getCanonicalName()));
+                e.getCause().printStackTrace();
             }
         }
     }

@@ -14,7 +14,6 @@ public class Player {
 
     public float actionDelay;
 
-    //TODO: ASAP rewrite the stat variables. Also I should make the actionDelay smaller when speed increases and not the other way around
     public Inventory inventory;
     public Inventory equipped;
     public int selectedItem = 0;
@@ -31,7 +30,7 @@ public class Player {
 
 
     private final PImage sprite;
-    private World world;
+    public World world;
 
     public Player(PImage graphic, Vector2 spawnPosition) {
         this.sprite = graphic;

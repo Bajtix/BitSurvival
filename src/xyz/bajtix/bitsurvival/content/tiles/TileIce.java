@@ -32,8 +32,7 @@ public class TileIce extends TileSheet implements HeatEmitter {
             }
             isMelting = true;
         }
-        else
-        {
+        else {
             isMelting = false;
         }
 

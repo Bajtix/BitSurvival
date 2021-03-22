@@ -26,6 +26,7 @@ public class GuiInventory extends GUI {
             if(pl.getSelectedItemStack().item instanceof Equipable) { // replace pl with player.get() is doesn't work
                 pl.getSelectedItemStack().count--;
                 ItemStack s = pl.getSelectedItemStack();
+                ((Equipable)s.item).equipped(player, player.world);
                 pl.equipped.insert(new ItemStack(s.item,1));
             }
         }
@@ -34,6 +35,7 @@ public class GuiInventory extends GUI {
             if(pl.equipped.stacks[pl.selectedItem] != null) {
                 pl.equipped.stacks[pl.selectedItem].count--;
                 ItemStack s = pl.equipped.stacks[pl.selectedItem];
+                ((Equipable)s.item).unequipped(player, player.world);
                 pl.inventory.insert(new ItemStack(s.item,1));
             }
         }

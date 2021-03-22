@@ -21,6 +21,8 @@ public class TileSheet extends Tile{
         this.frame++;
     }
 
+    public void previousFrame() { this.frame--; }
+
     public int getFrameCount() {
         return frameCount;
     }
