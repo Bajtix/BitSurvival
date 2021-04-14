@@ -5,6 +5,7 @@ import processing.core.PFont;
 import processing.event.KeyEvent;
 import processing.opengl.PGraphicsOpenGL;
 import xyz.bajtix.bitsurvival.content.GUIs;
+import xyz.bajtix.bitsurvival.content.Items;
 import xyz.bajtix.bitsurvival.content.Tiles;
 import xyz.bajtix.bitsurvival.core.*;
 
@@ -57,6 +58,7 @@ public class BitSurvival extends PApplet {
         UIManager.update();
         surface.setIcon(loadImage("data/player.png"));
         Tiles.loadTiles();
+        Items.regAll();
         EventSystem.initialize();
         world = new World();
         player = new Player(loadImage("data/player.png"),new Vector2(World.WORLD_SIZE/2,World.WORLD_SIZE/2));

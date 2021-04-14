@@ -4,8 +4,6 @@ import processing.core.PImage;
 
 public class TileSheet extends Tile{
 
-
-
     private int frame;
     private int frameCount;
 

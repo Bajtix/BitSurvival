@@ -12,8 +12,6 @@ public class GuiInventory extends GUI {
         this.player = player;
     }
 
-    private int selectedSlot;
-
 
     @Override
     public void setup() {
@@ -27,7 +25,7 @@ public class GuiInventory extends GUI {
                 pl.getSelectedItemStack().count--;
                 ItemStack s = pl.getSelectedItemStack();
                 ((Equipable)s.item).equipped(player, player.world);
-                pl.equipped.insert(new ItemStack(s.item,1));
+                pl.equipped.insert(new ItemStack(s.item,1,false));
             }
         }
 
@@ -36,7 +34,7 @@ public class GuiInventory extends GUI {
                 pl.equipped.stacks[pl.selectedItem].count--;
                 ItemStack s = pl.equipped.stacks[pl.selectedItem];
                 ((Equipable)s.item).unequipped(player, player.world);
-                pl.inventory.insert(new ItemStack(s.item,1));
+                pl.inventory.insert(new ItemStack(s.item,1,false));
             }
         }
 
@@ -66,7 +64,7 @@ public class GuiInventory extends GUI {
 
         doInput();
 
-        selectedSlot = player.selectedItem;
+        int selectedSlot = player.selectedItem;
         Render.fill(0);
         Render.rect(112,90,480-224,480-180);
         Render.fill(255);
