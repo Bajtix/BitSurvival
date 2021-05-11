@@ -17,7 +17,7 @@ public class BitSurvival extends PApplet {
     public World world;
     public Player player;
 
-    private int lastTime = 0;
+    private int lastTime = 0; // avars used for deltaTime
 
     private PFont pixel;
     public int deltaTime = 0;

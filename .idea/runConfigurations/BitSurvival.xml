@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="BitSurvival" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="xyz.bajtix.bitsurvival.BitSurvival" />
+    <module name="BitSurvival" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

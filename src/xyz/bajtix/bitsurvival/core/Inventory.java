@@ -23,7 +23,7 @@ public class Inventory
 
         for(ItemStack s : stacks) {
             if(s != null)
-                if(s.item == stack.item) {
+                if(s.item.equals(stack.item)) {
                     if(s.count < s.item.maxStackSize) {
                         int capacity = s.item.maxStackSize - s.count;
                         if(stack.count <= capacity) {

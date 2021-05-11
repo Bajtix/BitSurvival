@@ -100,7 +100,7 @@ public class GuiInventory extends GUI {
             }
             else
                 Render.fill(128);
-            if(i != null) tname = i.item.name + " * " + i.count;
+            if(i != null) tname = i.item.name + " * " + i.count ;
             Render.text(tname,480-118,154 + 16 * (id+1));
 
             id++;
